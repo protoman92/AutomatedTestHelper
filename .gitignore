@@ -5,6 +5,5 @@ yarn.lock
 coverage
 node_modules
 package-lock.json
-dist
 yarn-error.log
 .env
