@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Language } from './../../localization';
 import { Try, Maybe } from 'javascriptutilities';
-import * as Helper from './helper';
+import * as Params from './params';
 
 /**
  * Represents a common page that exposes functionalities to be used by all other
@@ -28,20 +28,20 @@ export interface Type {
  * @implements {Type} Type implementation.
  */
 class Self implements Type {
-  private helper: Helper.Type;
+  private params: Params.Type;
 
-  constructor(params: Helper.Type) {
-    this.helper = params;
+  constructor(params: Params.Type) {
+    this.params = params;
   }
 
   localize(text: string): string {
-    let language = Try.success(this.helper.config.worldConfig)
+    let language = Try.success(this.params.config.worldConfig)
       .flatMap(v => Maybe.unwrap(v.language))
       .filter(v => typeof v === 'string', '')
       .map(v => v as Language.Case)
       .getOrElse(Language.Case.EN_US);
 
-    return this.helper.localizer.localize(language, text);
+    return this.params.localizer.localize(language, text);
   }
 
   verifyActive(): Observable<Try<void>> {
@@ -51,9 +51,9 @@ class Self implements Type {
 
 /**
  * Create a new common page.
- * @param {Helper.Type} helper A Params instance.
+ * @param {Params.Type} params A Params instance.
  * @returns {Type} A Type instance.
  */
-export function create(helper: Helper.Type): Type {
-  return new Self(helper);
+export function create(params: Params.Type): Type {
+  return new Self(params);
 }

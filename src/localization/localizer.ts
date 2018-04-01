@@ -61,11 +61,11 @@ export class Builder {
 
   /**
    * Add a new language.
-   * @param {Language.Case} language A Language case.
+   * @param {string} language A string value.
    * @param {JSObject<string>} json A JSON instance.
    * @returns {this} The current Builder instance.
    */
-  addLanguage(language: Language.Case, json: JSObject<string>): this {
+  addLanguage(language: string, json: JSObject<string>): this {
     this.localizer.languages[language.toLowerCase()] = json;
     return this;
   }

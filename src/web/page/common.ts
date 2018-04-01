@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Try } from 'javascriptutilities';
-import * as Helper from './helper';
+import * as Params from './params';
 import { Page } from './../../common';
 
 /**
@@ -8,16 +8,20 @@ import { Page } from './../../common';
  * here.
  * @extends {Page.Common.Type} Common page extension.
  */
-export interface Type extends Page.Common.Type {}
+export interface Type extends Page.Common.Type {
+  readonly params: Params.Type;
+}
 
 /**
  * Common web page implementation.
  */
 class Self implements Type {
+  public readonly params: Params.Type;
   private readonly commonPage: Page.Common.Type;
 
-  constructor(commonPage: Page.Common.Type) {
+  constructor(commonPage: Page.Common.Type, params: Params.Type) {
     this.commonPage = commonPage;
+    this.params = params;
   }
 
   localize(text: string): string {
@@ -31,10 +35,10 @@ class Self implements Type {
 
 /**
  * Create a new common web page.
- * @param {Helper.Type} helper A Helper instance.
+ * @param {Params.Type} params A Params instance.
  * @returns {Type} A common page instance.
  */
-export function create(helper: Helper.Type): Type {
-  let commonPage = Page.Common.create(helper);
-  return new Self(commonPage);
+export function create(params: Params.Type): Type {
+  let commonPage = Page.Common.create(params);
+  return new Self(commonPage, params);
 }

@@ -1,7 +1,7 @@
 {
-  "name": "automated_test_template",
+  "name": "automated_test_helper",
   "version": "1.0.0",
-  "description": "Automated UI test template.",
+  "description": "Automated UI test helper.",
   "main": "index.js",
   "scripts": {
     "cucumber": "./node_modules/.bin/cucumber-js $0 --require-module ts-node/register --require 'src/*/steps/*.steps.ts' --world-parameters",

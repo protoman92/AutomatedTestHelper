@@ -1,25 +1,24 @@
 import { JSObject, Nullable, Types } from 'javascriptutilities';
-import * as Dependency from './common/dependency';
+import * as Helper from './common/helper';
 
-export namespace Custom {
-  export let keys: (keyof Type)[] = ['dependency'];
+// World constructor function that will be used to initialize world properties.
+// The world object will be passed as a parameter so we can perform any setup
+// on it, such as setting test helper, logged-in username, etc.
+export type WorldConstructor = (world: JSObject<any>, params: JSObject<any>) => void;
+
+export namespace Base {
+  export let keys: (keyof Type)[] = ['helper'];
 
   /**
    * Represents a custom world object that exposes common functionalities for
    * all steps. Add properties (such as logged in username) here so that they
    * can be accessed anywhere.
+   *
+   * For a specific project, we can add the available test pages as a world
+   * property so that steps can access the relevant page objects.
    */
   export interface Type {
-    readonly dependency: Dependency.Type;
-  }
-
-  /**
-   * Construct a world object with the required parameters.
-   * @param {JSObject<any>} world A possible world object.
-   * @param {Dependency.Type} dependency A Dependency instance.
-   */
-  export function construct(world: JSObject<any>, dependency: Dependency.Type): void {
-    world.dependency = dependency;
+    readonly helper: Helper.Type;
   }
 
   /**
