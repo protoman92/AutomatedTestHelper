@@ -6,27 +6,29 @@ const cucumber_1 = require("cucumber");
 const World = require("./../world");
 /**
  * Setup world object with a world constructor.
- * @param {WorldConstructor} constructor A WorldConstructor instance.
+ * @param {SetupParams.Type} setupParams A SetupParams instance.
  */
-function setupWorld(constructor) {
+function setupWorld(setupParams) {
     let subscription;
     let world;
     cucumber.setWorldConstructor(function (params) {
         World.Parameters.parse(params, (v) => {
-            constructor(this, v);
+            setupParams.worldConstructor(this, v);
             world = World.Base.parse(this);
         });
     });
     cucumber_1.Before(function (_result, callback) {
         subscription = new rxjs_1.Subscription();
         world.helper.beforeEach()
+            .concat(setupParams.beforeEach)
             .doOnError(e => callback(e))
             .doOnCompleted(() => callback())
             .subscribe()
             .toBeDisposedBy(subscription);
     });
     cucumber_1.After(function (_result, callback) {
-        world.helper.afterEach()
+        setupParams.afterEach
+            .concat(world.helper.afterEach())
             .doOnError(e => callback(e))
             .doOnCompleted(() => callback())
             .subscribe()
@@ -43,4 +45,4 @@ function notifyPendingImplementation(callback) {
     callback(undefined, 'pending');
 }
 exports.notifyPendingImplementation = notifyPendingImplementation;
-//# sourceMappingURL=common.js.map
+//# sourceMappingURL=util.js.map

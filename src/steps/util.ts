@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import * as cucumber from 'cucumber';
 
 import {
@@ -12,17 +12,32 @@ import { Indeterminate } from 'javascriptutilities';
 import * as World from './../world';
 import { WorldConstructor } from './../world';
 
+export namespace SetupParams {
+  /**
+   * Represents the parameters to setup/teardown before/after tests.
+   */
+  export interface Type {
+    worldConstructor: WorldConstructor;
+
+    // This will be subscribed to after the default Before method.
+    beforeEach: Observable<void>;
+
+    // This will be subscribed to before the default After method.
+    afterEach: Observable<void>;
+  }
+}
+
 /**
  * Setup world object with a world constructor.
- * @param {WorldConstructor} constructor A WorldConstructor instance.
+ * @param {SetupParams.Type} setupParams A SetupParams instance.
  */
-export function setupWorld(constructor: WorldConstructor) {
+export function setupWorld(setupParams: SetupParams.Type) {
   let subscription: Subscription;
   let world: Indeterminate<World.Base.Type>;
 
   cucumber.setWorldConstructor(function(params: World.Parameters.Type) {
     World.Parameters.parse(params, (v) => {
-      constructor(this, v);
+      setupParams.worldConstructor(this, v);
       world = World.Base.parse(this);
     });
   });
@@ -31,6 +46,7 @@ export function setupWorld(constructor: WorldConstructor) {
     subscription = new Subscription();
 
     world!.helper.beforeEach()
+      .concat(setupParams.beforeEach)
       .doOnError(e => callback(e))
       .doOnCompleted(() => callback())
       .subscribe()
@@ -38,7 +54,8 @@ export function setupWorld(constructor: WorldConstructor) {
   });
 
   After(function(_result: HookScenarioResult, callback: CB) {
-    world!.helper.afterEach()
+    setupParams.afterEach
+      .concat(world!.helper.afterEach())
       .doOnError(e => callback(e))
       .doOnCompleted(() => callback())
       .subscribe()

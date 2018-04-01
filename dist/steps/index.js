@@ -1,5 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Common = require("./common");
-exports.Common = Common;
+const Util = require("./util");
+exports.Util = Util;
 //# sourceMappingURL=index.js.map

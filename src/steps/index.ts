@@ -1,2 +1,2 @@
-import * as Common from './common';
-export { Common };
+import * as Util from './util';
+export { Util };
