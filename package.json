@@ -1,0 +1,30 @@
+{
+  "name": "automated_test_template",
+  "version": "1.0.0",
+  "description": "Automated UI test template.",
+  "main": "index.js",
+  "scripts": {
+    "cucumber": "./node_modules/.bin/cucumber-js $0 --require-module ts-node/register --require 'src/*/steps/*.steps.ts' --world-parameters",
+    "cucumber-chrome-en-US": "npm run cucumber '{\"browser\":\"chrome\",\"language\":\"en-US\"}' $0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/protoman92/AutomatedTestTemplate.git"
+  },
+  "keywords": [
+    "cucumber",
+    "selenium"
+  ],
+  "author": "Hai Pham",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@types/cucumber": "^4.0.1",
+    "@types/node": "^9.6.1",
+    "@types/selenium-webdriver": "^3.0.8",
+    "chromedriver": "^2.37.0",
+    "cucumber": "^4.1.0",
+    "javascriptutilities": "^1.4.7",
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "ts-node": "^5.0.1"
+  }
+}
