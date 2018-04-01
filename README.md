@@ -1,6 +1,6 @@
-# AutomatedTestTemplate
+# AutomatedTestHelper
 
-Automated UI test template. Simply add this project as a dependency and provide custom **.feature** and step definition files.
+Automated UI test helper. Simply add this project as a dependency and provide custom **.feature** and step definition files.
 
 This repository is split into several folders and sub-folders:
 

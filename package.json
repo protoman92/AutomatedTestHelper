@@ -2,14 +2,16 @@
   "name": "automated_test_helper",
   "version": "1.0.0",
   "description": "Automated UI test helper.",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "cucumber": "./node_modules/.bin/cucumber-js $0 --require-module ts-node/register --require 'src/*/steps/*.steps.ts' --world-parameters",
     "cucumber-chrome-en-US": "npm run cucumber '{\"browser\":\"chrome\",\"language\":\"en-US\"}' $0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/protoman92/AutomatedTestTemplate.git"
+    "url": "git+https://github.com/protoman92/AutomatedTestHelper.git"
   },
   "keywords": [
     "cucumber",
