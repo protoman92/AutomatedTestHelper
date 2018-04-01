@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { CallbackStepDefinition as CB } from 'cucumber';
 import { WorldConstructor } from './../world';
 export declare namespace SetupParams {
@@ -7,8 +6,6 @@ export declare namespace SetupParams {
      */
     interface Type {
         worldConstructor: WorldConstructor;
-        beforeEach: Observable<void>;
-        afterEach: Observable<void>;
     }
 }
 /**

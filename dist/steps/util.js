@@ -20,15 +20,13 @@ function setupWorld(setupParams) {
     cucumber_1.Before(function (_result, callback) {
         subscription = new rxjs_1.Subscription();
         world.helper.beforeEach()
-            .concat(setupParams.beforeEach)
             .doOnError(e => callback(e))
             .doOnCompleted(() => callback())
             .subscribe()
             .toBeDisposedBy(subscription);
     });
     cucumber_1.After(function (_result, callback) {
-        setupParams.afterEach
-            .concat(world.helper.afterEach())
+        world.helper.afterEach()
             .doOnError(e => callback(e))
             .doOnCompleted(() => callback())
             .subscribe()

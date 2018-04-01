@@ -19,10 +19,10 @@ class Self {
     }
     beforeEach() {
         let url = this.config.baseUrl;
-        return rxjs_1.Observable.fromPromise(this.driver.get(url)).delay(1000);
+        return rxjs_1.Observable.fromPromise(this.driver.get(url));
     }
     afterEach() {
-        return rxjs_1.Observable.concat(this.driver.quit()).delay(1000);
+        return rxjs_1.Observable.concat(this.driver.quit());
     }
 }
 let service = new wdchrome.ServiceBuilder(chromedriver.path).build();

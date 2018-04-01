@@ -1,4 +1,4 @@
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import * as cucumber from 'cucumber';
 
 import {
@@ -18,12 +18,6 @@ export namespace SetupParams {
    */
   export interface Type {
     worldConstructor: WorldConstructor;
-
-    // This will be subscribed to after the default Before method.
-    beforeEach: Observable<void>;
-
-    // This will be subscribed to before the default After method.
-    afterEach: Observable<void>;
   }
 }
 
@@ -46,8 +40,6 @@ export function setupWorld(setupParams: SetupParams.Type) {
     subscription = new Subscription();
 
     world!.helper.beforeEach()
-      .concat(setupParams.beforeEach)
-      .toArray()
       .doOnError(e => callback(e))
       .doOnCompleted(() => callback())
       .subscribe()
@@ -55,9 +47,7 @@ export function setupWorld(setupParams: SetupParams.Type) {
   });
 
   After(function(_result: HookScenarioResult, callback: CB) {
-    setupParams.afterEach
-      .concat(world!.helper.afterEach())
-      .toArray()
+    world!.helper.afterEach()
       .doOnError(e => callback(e))
       .doOnCompleted(() => callback())
       .subscribe()
