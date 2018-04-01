@@ -47,6 +47,7 @@ export function setupWorld(setupParams: SetupParams.Type) {
 
     world!.helper.beforeEach()
       .concat(setupParams.beforeEach)
+      .toArray()
       .doOnError(e => callback(e))
       .doOnCompleted(() => callback())
       .subscribe()
@@ -56,6 +57,7 @@ export function setupWorld(setupParams: SetupParams.Type) {
   After(function(_result: HookScenarioResult, callback: CB) {
     setupParams.afterEach
       .concat(world!.helper.afterEach())
+      .toArray()
       .doOnError(e => callback(e))
       .doOnCompleted(() => callback())
       .subscribe()

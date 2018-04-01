@@ -34,11 +34,11 @@ class Self implements Type {
 
   beforeEach(): Observable<void> {
     let url = this.config.baseUrl;
-    return Observable.fromPromise(this.driver.get(url)).delay(1000);
+    return Observable.fromPromise(this.driver.get(url));
   }
 
   afterEach(): Observable<void> {
-    return Observable.concat(this.driver.quit()).delay(1000);
+    return Observable.concat(this.driver.quit());
   }
 }
 
