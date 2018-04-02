@@ -38,10 +38,24 @@ export interface Type {
 
   /**
    * Find an element whose name attribute contains a specified string.
-   * @param {string} text a string value.
+   * @param {string} text A string value.
    * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
    */
   findOneContainingName(text: string): Observable<Try<wd.WebElement>>;
+
+  /**
+   * Find an element whose class attribute contains a specified string.
+   * @param {string} text A string value.
+   * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
+   */
+  findOneContainingClass(text: string): Observable<Try<wd.WebElement>>;
+
+  /**
+   * Find an element whose class attribute matches a specified string.
+   * @param {string} text A string value.
+   * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
+   */
+  findOneWithClass(text: string): Observable<Try<wd.WebElement>>;
 }
 
 /**
@@ -79,6 +93,14 @@ class Self implements Type {
 
   findOneContainingName(text: string): Observable<Try<wd.WebElement>> {
     return this.findOneWithXPath(`//*[contains(@name, '${text}')]`);
+  }
+
+  findOneContainingClass(text: string): Observable<Try<wd.WebElement>> {
+    return this.findOneWithXPath(`//*[contains(@class, '${text}')]`);
+  }
+
+  findOneWithClass(text: string): Observable<Try<wd.WebElement>> {
+    return this.findOneWithXPath(`//*[@class='${text}']`);
   }
 }
 

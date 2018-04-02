@@ -31,6 +31,12 @@ class Self {
     findOneContainingName(text) {
         return this.findOneWithXPath(`//*[contains(@name, '${text}')]`);
     }
+    findOneContainingClass(text) {
+        return this.findOneWithXPath(`//*[contains(@class, '${text}')]`);
+    }
+    findOneWithClass(text) {
+        return this.findOneWithXPath(`//*[@class='${text}']`);
+    }
 }
 /**
  * Create a new web Element finder.
