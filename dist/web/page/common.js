@@ -17,6 +17,9 @@ class Self {
     verifyActive() {
         return rxjs_1.Observable.of(javascriptutilities_1.Try.failure('Must override this'));
     }
+    waitUntilActive() {
+        return rxjs_1.Observable.of(javascriptutilities_1.Try.failure('Must override this'));
+    }
 }
 /**
  * Create a new common web page.

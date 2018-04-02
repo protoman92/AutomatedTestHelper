@@ -17,6 +17,11 @@ export interface Type {
      * @returns {Observable<Try<any>>} An Observable instance.
      */
     verifyActive(): Observable<Try<any>>;
+    /**
+     * Wait until the current page is active.
+     * @returns {Observable<Try<any>>} An Observable instance.
+     */
+    waitUntilActive(): Observable<Try<any>>;
 }
 /**
  * Create a new common page.

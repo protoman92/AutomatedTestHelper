@@ -34,12 +34,12 @@ class Self implements Type {
     this.localizer = localizer;
   }
 
-  beforeEach(): Observable<void> {
+  beforeEach(): Observable<any> {
     let url = this.config.baseUrl;
     return Observable.fromPromise(this.driver.get(url));
   }
 
-  afterEach(): Observable<void> {
+  afterEach(): Observable<any> {
     return Observable.concat(this.driver.quit());
   }
 }

@@ -28,7 +28,11 @@ class Self implements Type {
     return this.commonPage.localize(text);
   }
 
-  verifyActive(): Observable<Try<void>> {
+  verifyActive(): Observable<Try<any>> {
+    return Observable.of(Try.failure('Must override this'));
+  }
+
+  waitUntilActive(): Observable<Try<any>> {
     return Observable.of(Try.failure('Must override this'));
   }
 }

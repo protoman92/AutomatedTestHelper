@@ -20,6 +20,12 @@ export interface Type {
    * @returns {Observable<Try<any>>} An Observable instance.
    */
   verifyActive(): Observable<Try<any>>;
+
+  /**
+   * Wait until the current page is active.
+   * @returns {Observable<Try<any>>} An Observable instance.
+   */
+  waitUntilActive(): Observable<Try<any>>;
 }
 
 /**
@@ -44,7 +50,11 @@ class Self implements Type {
     return this.params.localizer.localize(language, text);
   }
 
-  verifyActive(): Observable<Try<void>> {
+  verifyActive(): Observable<Try<any>> {
+    return Observable.of(Try.failure('Must override this'));
+  }
+
+  waitUntilActive(): Observable<Try<any>> {
     return Observable.of(Try.failure('Must override this'));
   }
 }

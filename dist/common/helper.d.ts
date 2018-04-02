@@ -7,6 +7,6 @@ import * as Page from './page';
  * @extends {Page.Params.Type} Page params extension.
  */
 export interface Type extends Page.Params.Type {
-    beforeEach(): Observable<void>;
-    afterEach(): Observable<void>;
+    beforeEach(): Observable<any>;
+    afterEach(): Observable<any>;
 }
