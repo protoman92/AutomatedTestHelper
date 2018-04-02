@@ -16,6 +16,7 @@ class Self {
         return rxjs_1.Observable
             .fromPromise(this.driver.findElement(locator))
             .retry(this.config.retryCount)
+            .delay(this.config.elementLocatedDelay)
             .map(v => javascriptutilities_1.Try.success(v))
             .catchJustReturn(e => javascriptutilities_1.Try.failure(e));
     }

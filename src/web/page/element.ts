@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import * as wd from 'selenium-webdriver';
 import { Try } from 'javascriptutilities';
-import * as Config from './../config';
+import * as Config from './config';
 
 /**
  * Web-based element finder. This will be passed to the params so that pages
@@ -75,6 +75,7 @@ class Self implements Type {
     return Observable
       .fromPromise(this.driver.findElement(locator))
       .retry(this.config.retryCount)
+      .delay(this.config.elementLocatedDelay)
       .map(v => Try.success(v))
       .catchJustReturn(e => Try.failure<wd.WebElement>(e));
   }

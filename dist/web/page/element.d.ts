@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import * as wd from 'selenium-webdriver';
 import { Try } from 'javascriptutilities';
-import * as Config from './../config';
+import * as Config from './config';
 /**
  * Web-based element finder. This will be passed to the params so that pages
  * can access its methods.
