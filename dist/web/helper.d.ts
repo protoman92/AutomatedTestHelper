@@ -1,14 +1,14 @@
 import * as wd from 'selenium-webdriver';
 import { Localizer } from './../localization';
-import { Helper } from './../common';
+import * as Common from './../common';
 import * as Config from './config';
 import * as Page from './page';
 /**
  * Represents dependencies for web-based tests.
- * @extends {Helper.Type} Common dependency extension.
+ * @extends {Common.Helper.Type} Common helper extension.
  * @extends {Page.Params.Type} Web page params extension.
  */
-export interface Type extends Helper.Type, Page.Params.Type {
+export interface Type extends Common.Helper.Type, Page.Params.Type {
 }
 /**
  * Create a driver based on the specified browser.

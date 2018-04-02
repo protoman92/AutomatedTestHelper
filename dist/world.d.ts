@@ -1,5 +1,5 @@
 import { JSObject, Nullable } from 'javascriptutilities';
-import * as Helper from './common/helper';
+import * as Common from './common';
 export declare type WorldConstructor = (world: JSObject<any>, params: JSObject<any>) => void;
 export declare namespace Base {
     let keys: (keyof Type)[];
@@ -12,7 +12,7 @@ export declare namespace Base {
      * property so that steps can access the relevant page objects.
      */
     interface Type {
-        readonly helper: Helper.Type;
+        readonly helper: Common.Helper.Type;
     }
     /**
      * Cast a possible world object to the correct type.

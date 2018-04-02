@@ -5,6 +5,7 @@ const wd = require("selenium-webdriver");
 const wdchrome = require("selenium-webdriver/chrome");
 const javascriptutilities_1 = require("javascriptutilities");
 const Browser = require("./browser");
+const Page = require("./page");
 let chromedriver = require('chromedriver');
 /**
  * Represents a test dependency
@@ -15,6 +16,7 @@ class Self {
         let driver = createDriver(config);
         this.config = config;
         this.driver = driver;
+        this.element = Page.Element.create(config, driver);
         this.localizer = localizer;
     }
     beforeEach() {

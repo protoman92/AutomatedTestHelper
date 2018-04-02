@@ -1,5 +1,5 @@
 import { JSObject, Nullable, Types } from 'javascriptutilities';
-import * as Helper from './common/helper';
+import * as Common from './common';
 
 // World constructor function that will be used to initialize world properties.
 // The world object will be passed as a parameter so we can perform any setup
@@ -18,7 +18,7 @@ export namespace Base {
    * property so that steps can access the relevant page objects.
    */
   export interface Type {
-    readonly helper: Helper.Type;
+    readonly helper: Common.Helper.Type;
   }
 
   /**

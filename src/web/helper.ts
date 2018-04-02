@@ -3,7 +3,7 @@ import * as wd from 'selenium-webdriver';
 import * as wdchrome from 'selenium-webdriver/chrome';
 import { Try } from 'javascriptutilities';
 import { Localizer } from './../localization';
-import { Helper } from './../common';
+import * as Common from './../common';
 import * as Browser from './browser';
 import * as Config from './config';
 import * as Page from './page';
@@ -11,10 +11,10 @@ let chromedriver = require('chromedriver');
 
 /**
  * Represents dependencies for web-based tests.
- * @extends {Helper.Type} Common dependency extension.
+ * @extends {Common.Helper.Type} Common helper extension.
  * @extends {Page.Params.Type} Web page params extension.
  */
-export interface Type extends Helper.Type, Page.Params.Type {}
+export interface Type extends Common.Helper.Type, Page.Params.Type {}
 
 /**
  * Represents a test dependency
@@ -23,12 +23,14 @@ export interface Type extends Helper.Type, Page.Params.Type {}
 class Self implements Type {
   public readonly config: Config.Type;
   public readonly driver: wd.WebDriver;
+  public readonly element: Page.Element.Type;
   public readonly localizer: Localizer.Type;
 
   constructor(config: Config.Type, localizer: Localizer.Type) {
     let driver = createDriver(config);
     this.config = config;
     this.driver = driver;
+    this.element = Page.Element.create(config, driver);
     this.localizer = localizer;
   }
 
