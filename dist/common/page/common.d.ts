@@ -14,9 +14,9 @@ export interface Type {
     localize(text: string): string;
     /**
      * Verify that the current page is active.
-     * @returns {Observable<Try<void>>} An Observable instance.
+     * @returns {Observable<Try<any>>} An Observable instance.
      */
-    verifyActive(): Observable<Try<void>>;
+    verifyActive(): Observable<Try<any>>;
 }
 /**
  * Create a new common page.
