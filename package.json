@@ -26,7 +26,7 @@
     "chromedriver": "^2.37.0",
     "cucumber": "^4.1.0",
     "javascriptutilities": "^1.4.7",
-    "selenium-webdriver": "^4.0.0-alpha.1",
+    "selenium-webdriver": "^3.0.8",
     "ts-node": "^5.0.1"
   }
 }
