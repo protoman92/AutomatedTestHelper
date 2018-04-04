@@ -62,7 +62,7 @@ export interface Type {
      * @param {string} xpath A string value.
      * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
      */
-    findSelectOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>>;
+    findSelectedOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>>;
 }
 /**
  * Create a new web Element finder.

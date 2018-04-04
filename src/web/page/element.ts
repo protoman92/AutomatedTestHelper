@@ -74,7 +74,7 @@ export interface Type {
    * @param {string} xpath A string value.
    * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
    */
-  findSelectOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>>;
+  findSelectedOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>>;
 }
 
 /**
@@ -135,7 +135,7 @@ class Self implements Type {
       .catchJustReturn(e => Try.failure(e));
   }
 
-  findSelectOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>> {
+  findSelectedOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>> {
     let locator = wd.By.xpath(xpath);
 
     let optionLocatorFn = (_, b: string) => {

@@ -46,7 +46,7 @@ class Self {
             .flatMap(v => this.findOne(v))
             .catchJustReturn(e => javascriptutilities_1.Try.failure(e));
     }
-    findSelectOptionWithXPath(xpath) {
+    findSelectedOptionWithXPath(xpath) {
         let locator = wd.By.xpath(xpath);
         let optionLocatorFn = (_, b) => {
             return wd.By.xpath(`${xpath}/option[@value='${b}']`);
