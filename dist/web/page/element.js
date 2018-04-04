@@ -38,6 +38,21 @@ class Self {
     findOneWithClass(text) {
         return this.findOneWithXPath(`//*[@class='${text}']`);
     }
+    findSelectedOption(selectLocator, optionLocatorFn) {
+        return this.findOne(selectLocator)
+            .map(v => v.getOrThrow())
+            .flatMap(v => v.getAttribute('value'))
+            .map(v => optionLocatorFn(selectLocator, v))
+            .flatMap(v => this.findOne(v))
+            .catchJustReturn(e => javascriptutilities_1.Try.failure(e));
+    }
+    findSelectOptionWithXPath(xpath) {
+        let locator = wd.By.xpath(xpath);
+        let optionLocatorFn = (_, b) => {
+            return wd.By.xpath(`${xpath}/option[@value='${b}']`);
+        };
+        return this.findSelectedOption(locator, optionLocatorFn);
+    }
 }
 /**
  * Create a new web Element finder.

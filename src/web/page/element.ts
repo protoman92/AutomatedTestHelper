@@ -56,6 +56,25 @@ export interface Type {
    * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
    */
   findOneWithClass(text: string): Observable<Try<wd.WebElement>>;
+
+  /**
+   * Find the selected option for a <select/> element.
+   * @param {wd.Locator} selectLocator A Locator instance.
+   * @param {(parent: wd.Locator, value: string) => wd.Locator} optionLocatorFn
+   * Function to create child option locator based on parent locator.
+   * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
+   */
+  findSelectedOption(
+    selectLocator: wd.Locator,
+    optionLocatorFn: (parent: wd.Locator, value: string) => wd.Locator,
+  ): Observable<Try<wd.WebElement>>;
+
+  /**
+   * Find the selected opton for a <select/> element.
+   * @param {string} xpath A string value.
+   * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
+   */
+  findSelectOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>>;
 }
 
 /**
@@ -102,6 +121,28 @@ class Self implements Type {
 
   findOneWithClass(text: string): Observable<Try<wd.WebElement>> {
     return this.findOneWithXPath(`//*[@class='${text}']`);
+  }
+
+  findSelectedOption(
+    selectLocator: wd.Locator,
+    optionLocatorFn: (parent: wd.Locator, value: string) => wd.Locator,
+  ): Observable<Try<wd.WebElement>> {
+    return this.findOne(selectLocator)
+      .map(v => v.getOrThrow())
+      .flatMap(v => v.getAttribute('value'))
+      .map(v => optionLocatorFn(selectLocator, v))
+      .flatMap(v => this.findOne(v))
+      .catchJustReturn(e => Try.failure(e));
+  }
+
+  findSelectOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>> {
+    let locator = wd.By.xpath(xpath);
+
+    let optionLocatorFn = (_, b: string) => {
+      return wd.By.xpath(`${xpath}/option[@value='${b}']`);
+    };
+
+    return this.findSelectedOption(locator, optionLocatorFn);
   }
 }
 
