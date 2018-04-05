@@ -20,7 +20,7 @@ class Self {
             .getOrElse(localization_1.Language.Case.EN_US);
         return this.params.localizer.localize(language, text);
     }
-    verifyActive() {
+    verifyCorrectness() {
         return rxjs_1.Observable.of(javascriptutilities_1.Try.failure('Must override this'));
     }
     waitUntilActive() {

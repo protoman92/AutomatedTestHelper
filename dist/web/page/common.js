@@ -14,7 +14,7 @@ class Self {
     localize(text) {
         return this.commonPage.localize(text);
     }
-    verifyActive() {
+    verifyCorrectness() {
         return rxjs_1.Observable.of(javascriptutilities_1.Try.failure('Must override this'));
     }
     waitUntilActive() {

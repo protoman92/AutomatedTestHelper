@@ -16,10 +16,12 @@ export interface Type {
   localize(text: string): string;
 
   /**
-   * Verify that the current page is active.
+   * Verify that the current page is active and correct. 'Correctness' in this
+   * context means all expected elements are present, so we can use this method
+   * to check world properties generally. Use this liberally in feature files.
    * @returns {Observable<Try<any>>} An Observable instance.
    */
-  verifyActive(): Observable<Try<any>>;
+  verifyCorrectness(): Observable<Try<any>>;
 
   /**
    * Wait until the current page is active.
@@ -50,7 +52,7 @@ class Self implements Type {
     return this.params.localizer.localize(language, text);
   }
 
-  verifyActive(): Observable<Try<any>> {
+  verifyCorrectness(): Observable<Try<any>> {
     return Observable.of(Try.failure('Must override this'));
   }
 
