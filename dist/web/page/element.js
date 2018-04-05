@@ -53,6 +53,19 @@ class Self {
         };
         return this.findSelectedOption(locator, optionLocatorFn);
     }
+    pollAndClick(locator) {
+        let driver = this.driver;
+        let timeout = this.config.elementWaitTimeout;
+        let condition = wd.until.elementLocated(locator);
+        return rxjs_1.Observable
+            .defer(() => rxjs_1.Observable.fromPromise(driver.wait(condition, timeout)))
+            .flatMap(v => v.click())
+            .map(v => javascriptutilities_1.Try.success(v))
+            .catchJustReturn(e => javascriptutilities_1.Try.failure(e));
+    }
+    pollAndClickWithXPath(xpath) {
+        return this.pollAndClick(wd.By.xpath(xpath));
+    }
 }
 /**
  * Create a new web Element finder.

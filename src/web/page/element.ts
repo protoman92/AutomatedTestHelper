@@ -75,6 +75,16 @@ export interface Type {
    * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
    */
   findSelectedOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>>;
+
+  /**
+   * Wait until an element is visible to click.
+   */
+  pollAndClick(locator: wd.Locator): Observable<Try<void>>;
+
+  /**
+   * Wait until an element at an xpath is visible to click.
+   */
+  pollAndClickWithXPath(xpath: string): Observable<Try<void>>;
 }
 
 /**
@@ -143,6 +153,22 @@ class Self implements Type {
     };
 
     return this.findSelectedOption(locator, optionLocatorFn);
+  }
+
+  pollAndClick(locator: wd.Locator): Observable<Try<void>> {
+    let driver = this.driver;
+    let timeout = this.config.elementWaitTimeout;
+    let condition = wd.until.elementLocated(locator);
+
+    return Observable
+      .defer(() => Observable.fromPromise(driver.wait(condition, timeout)))
+      .flatMap(v => v.click())
+      .map(v => Try.success(v))
+      .catchJustReturn(e => Try.failure(e));
+  }
+
+  pollAndClickWithXPath(xpath: string): Observable<Try<void>> {
+    return this.pollAndClick(wd.By.xpath(xpath));
   }
 }
 

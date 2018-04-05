@@ -3,6 +3,11 @@
  */
 export interface Type {
   /**
+   * Delay for a wait condition.
+   */
+  elementWaitTimeout: number;
+
+  /**
    * Delay for element location. This would be useful to slow down the test pace
    * to inspect elements visually.
    */

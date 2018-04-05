@@ -63,6 +63,14 @@ export interface Type {
      * @returns {Observable<Try<wd.WebElement>>} An Observable instance.
      */
     findSelectedOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>>;
+    /**
+     * Wait until an element is visible to click.
+     */
+    pollAndClick(locator: wd.Locator): Observable<Try<void>>;
+    /**
+     * Wait until an element at an xpath is visible to click.
+     */
+    pollAndClickWithXPath(xpath: string): Observable<Try<void>>;
 }
 /**
  * Create a new web Element finder.
