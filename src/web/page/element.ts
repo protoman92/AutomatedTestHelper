@@ -184,60 +184,92 @@ class LogSelf implements Type {
     this.element = element;
   }
 
-  findOne(locator: wd.Locator): Observable<Try<wd.WebElement>> {
+  /**
+   * Defer an Observable to provide logging.
+   * @template OE Generics parameter.
+   * @param {Observable<OE>} original The original Observable.
+   * @param {() => string} logFn A function that produces a string.
+   * @returns {Observable<OE>} An Observable instance.
+   */
+  private deferAndLog<OE>(original: Observable<OE>, logFn: () => string): Observable<OE> {
     let config = this.config;
-    let element = this.element;
 
     return Observable.defer(() => {
       if (config.loggingEnabled) {
-        console.log(`Finding element with locator: ${locator}`);
+        console.log(logFn());
       }
 
-      return element.findOne(locator);
+      return original;
     });
   }
 
+  findOne(locator: wd.Locator): Observable<Try<wd.WebElement>> {
+    let logFn = () => `Finding element with locator: ${locator}`;
+    let original = this.element.findOne(locator);
+    return this.deferAndLog(original, logFn);
+  }
+
   findOneWithXPath(xpath: string): Observable<Try<wd.WebElement>> {
-    return this.element.findOneWithXPath(xpath);
+    let logFn = () => `Finding element with xpath: ${xpath}`;
+    let original = this.element.findOneWithXPath(xpath);
+    return this.deferAndLog(original, logFn);
   }
 
   findOneContainingText(text: string): Observable<Try<wd.WebElement>> {
-    return this.element.findOneContainingText(text);
+    let logFn = () => `Finding element containing text: ${text}`;
+    let original = this.element.findOneContainingText(text);
+    return this.deferAndLog(original, logFn);
   }
 
   findOneWithText(text: string): Observable<Try<wd.WebElement>> {
-    return this.element.findOneWithText(text);
+    let logFn = () => `Finding element with text: ${text}`;
+    let original = this.element.findOneWithText(text);
+    return this.deferAndLog(original, logFn);
   }
 
   findOneContainingName(text: string): Observable<Try<wd.WebElement>> {
-    return this.element.findOneContainingName(text);
+    let logFn = () => `Finding one containing name: ${text}`;
+    let original = this.element.findOneContainingName(text);
+    return this.deferAndLog(original, logFn);
   }
 
   findOneContainingClass(text: string): Observable<Try<wd.WebElement>> {
-    return this.element.findOneContainingClass(text);
+    let logFn = () => `Finding one containing class: ${text}`;
+    let original = this.element.findOneContainingClass(text);
+    return this.deferAndLog(original, logFn);
   }
 
   findOneWithClass(text: string): Observable<Try<wd.WebElement>> {
-    return this.element.findOneWithClass(text);
+    let logFn = () => `Finding one with class: ${text}`;
+    let original = this.element.findOneWithClass(text);
+    return this.deferAndLog(original, logFn);
   }
 
   findSelectedOption(
     selectLocator: wd.Locator,
     optionLocatorFn: (parent: wd.Locator, value: string) => wd.Locator,
   ): Observable<Try<wd.WebElement>> {
-    return this.element.findSelectedOption(selectLocator, optionLocatorFn);
+    let logFn = () => `Finding selected option for parent: ${selectLocator}`;
+    let original = this.element.findSelectedOption(selectLocator, optionLocatorFn);
+    return this.deferAndLog(original, logFn);
   }
 
   findSelectedOptionWithXPath(xpath: string): Observable<Try<wd.WebElement>> {
-    return this.element.findSelectedOptionWithXPath(xpath);
+    let logFn = () => `Finding selected option with xpath: ${xpath}`;
+    let original = this.element.findSelectedOptionWithXPath(xpath);
+    return this.deferAndLog(original, logFn);
   }
 
   pollAndClick(locator: wd.Locator): Observable<Try<void>> {
-    return this.element.pollAndClick(locator);
+    let logFn = () => `Polling/Clicking: ${locator}`;
+    let original = this.element.pollAndClick(locator);
+    return this.deferAndLog(original, logFn);
   }
 
   pollAndClickWithXPath(xpath: string): Observable<Try<void>> {
-    return this.element.pollAndClickWithXPath(xpath);
+    let logFn = () => `Polling/Clicking with xpath: ${xpath}`;
+    let original = this.element.pollAndClickWithXPath(xpath);
+    return this.deferAndLog(original, logFn);
   }
 }
 
